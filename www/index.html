@@ -63,25 +63,50 @@
     		//获取用户位置
     		var oLocationBtn=document.getElementById('get-geolcation');
     		var oLocationInfo=document.getElementById('geolcation-info');
+    		var locationbSign=true;
     		oLocationBtn.onclick=function(){
-    			alert('即将要获取您的位置');
-    			navigator.geolocation.getCurrentPosition(function(position){
-    				oLocationInfo.innerHTML='精确度:'+position.coords.accuracy+'; 纬度:'+position.coords.latitude+'; 经度:'+position.coords.longitude;
-    			},function(err){
-    				alert('获取位置失败:'+err.message);
-    			});
+    			if(locationbSign){
+					var timer=navigator.geolocation.watchPosition(function(position){
+	    				oLocationInfo.innerHTML='精确度:'+position.coords.accuracy+'; 纬度:'+position.coords.latitude+'; 经度:'+position.coords.longitude;
+	    			},function(err){
+	    				alert('获取位置失败:'+err.message);
+	    			});
+    			}else{
+    				navigator.geolocation.clearWatch(timer);
+    			}
+    			locationbSign=!locationbSign;
     		};
 
     		//重力感应
     		var oLogo=document.querySelector('.logo');
     		var oAccInfo=document.getElementById('acceleration-info');
+    		var accelerationbSign=true;
     		oLogo.onclick=function(){
-    			navigator.accelerometer.getCurrentAcceleration(function(acc){
-    				oAccInfo.innerHTML='x:'+(acc.x).toFixed(2)+',y:'+(acc.y).toFixed(2)+', z:'+(acc.z).toFixed(2);
-    			}, function(){
+    			if(accelerationbSign){
+					var timer=navigator.accelerometer.watchAcceleration(function(acc){
+	    				oAccInfo.innerHTML='x:'+(acc.x).toFixed(2)+',y:'+(acc.y).toFixed(2)+', z:'+(acc.z).toFixed(2);
+	    			}, function(){
 
-    			});
+	    			});
+    			}else{
+    				navigator.accelerometer.clearWatch(timer);
+    			}
+    			accelerationbSign=!accelerationbSign;
     		};
+
+    		//手机网络状况
+    		var oConnectInfo=document.getElementById('connect-info');
+    		oConnectInfo.innerHTML='您网络是:'+navigator.connection.type;
+    		oConnectInfo.onclick=function(){
+    			oConnectInfo.innerHTML='您网络是:'+navigator.connection.type;
+    		};
+
+    		document.addEventListener('online',function(){
+    			oConnectInfo.innerHTML='您已经联网';
+    		},false);
+    		document.addEventListener('offline',function(){
+    			oConnectInfo.innerHTML='您已断网';
+    		},false);
     	},false);
     </script>
 </head>
@@ -105,7 +130,7 @@
 			<ul class="slider-content">
 				<li>
 					<img id="camera-img1" src="image/banner01.png" alt="">
-					<span>紫禁城的石头是如何运进去的?</span>
+					<span id="connect-info">紫禁城的石头是如何运进去的?</span>
 				</li>
 			</ul>
 		</div>
