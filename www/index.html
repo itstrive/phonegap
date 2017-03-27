@@ -43,11 +43,33 @@
     </script>
     <script>
     	document.addEventListener('deviceready',function(){
-    		
-    		navigator.splashscreen.show();
-    		window.setTimeout(function () {
-			    navigator.splashscreen.hide();
-			}, 1000);
+    		//请求数据
+			alert(Vue);
+			new Vue({
+				el:'#listView-box',
+				data:{
+					dataList:[]
+				},
+				created(){
+					this.fetchData();
+				},
+				methods:{
+					fetchData(){
+						var _this=this;
+						$.ajax({
+							url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+							data:{
+								wd:'a'
+							},
+							dataType:'jsonp',
+							jsonp:'cb',
+							success:function(res){
+								_this.dataList=res.s;
+							}
+						})
+					}
+				}
+			});
 
     		navigator.notification.alert(
 			    '欢迎来到果壳网站!',  // message
@@ -323,34 +345,6 @@
 	</footer>
 
 	<script>
-		//请求数据
-		alert(Vue);
-		alert($.ajax);
-		new Vue({
-			el:'#listView-box',
-			data:{
-				dataList:[]
-			},
-			created(){
-				this.fetchData();
-			},
-			methods:{
-				fetchData(){
-					var _this=this;
-					$.ajax({
-						url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
-						data:{
-							wd:'a'
-						},
-						dataType:'jsonp',
-						jsonp:'cb',
-						success:function(res){
-							_this.dataList=res.s;
-						}
-					})
-				}
-			}
-		})
 	</script>
 </body>
 </html>
