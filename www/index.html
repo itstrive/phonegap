@@ -8,6 +8,28 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="css/index.css">
     <script type="text/javascript" src="cordova.js"></script>
+    <style>
+    	@keyframes shakeBody{
+    		0%{
+    			transform:rotate(0deg) translateY(0);
+    		}
+    		25%{
+				transform:rotate(15deg)  translateY(50px);
+    		}
+    		50%{
+    			transform:rotate(0deg)  translateY(0);
+    		}
+    		75%{
+    			transform:rotate(-15deg)  translateY(-50px);
+    		}
+    		100%{
+    			transform:rotate(0deg)  translateY(0);
+    		}
+    	}
+    	.shake{
+    		animation:.4s shakeBody linear 2;
+    	}
+    </style>
     <script>
     	(function(){
     		document.documentElement.style.fontSize=document.documentElement.clientWidth*20/320+'px';
@@ -107,6 +129,34 @@
     		document.addEventListener('offline',function(){
     			oConnectInfo.innerHTML='您已断网';
     		},false);
+
+    		//摇一摇
+    		var x=0;
+    		var y=0;
+    		var z=0;
+    		var lastX=0;
+    		var lastY=0;
+    		var lastZ=0;
+    		navigator.accelerometer.watchAcceleration(function(acc){
+    			x=acc.x;
+    			y=acc.y;
+    			z=acc.z;
+
+    			if(
+					Math.abs(x-lastX)>20 ||
+					Math.abs(y-lastY)>20 ||
+					Math.abs(z-lastZ)>20
+    			){
+    				document.body.className='shake';
+    				navigator.vibrate(800);	
+    			}
+
+    			lastX=x;
+    			lastY=y;
+    			lastZ=z;
+			}, function(){
+
+			});
     	},false);
     </script>
 </head>
