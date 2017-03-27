@@ -8,8 +8,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="css/index.css">
     <script type="text/javascript" src="cordova.js"></script>
-    <script src="zepto.min.js"></script>
-    <script src="vue.min.js"></script>
+    <script src="js/zepto.min.js"></script>
+    <script src="js/vue.min.js"></script>
     <style>
     	@-webkit-keyframes shakeBody{
     		0%{
@@ -169,35 +169,6 @@
 			}, function(){
 
 			},{ frequency: 100 });
-
-			//请求数据
-			alert(Vue);
-			alert($.ajax);
-			new Vue({
-				el:'#listView-box',
-				data:{
-					dataList:[]
-				},
-				created(){
-					this.fetchData();
-				},
-				methods:{
-					fetchData(){
-						var _this=this;
-						$.ajax({
-							url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
-							data:{
-								wd:'a'
-							},
-							dataType:'jsonp',
-							jsonp:'cb',
-							success:function(res){
-								_this.dataList=res.s;
-							}
-						})
-					}
-				}
-			})
     	},false);
     </script>
 </head>
@@ -350,5 +321,36 @@
 			<a class="mobile" href="javascript:;">移动应用</a>
 		</div>
 	</footer>
+
+	<script>
+		//请求数据
+		alert(Vue);
+		alert($.ajax);
+		new Vue({
+			el:'#listView-box',
+			data:{
+				dataList:[]
+			},
+			created(){
+				this.fetchData();
+			},
+			methods:{
+				fetchData(){
+					var _this=this;
+					$.ajax({
+						url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+						data:{
+							wd:'a'
+						},
+						dataType:'jsonp',
+						jsonp:'cb',
+						success:function(res){
+							_this.dataList=res.s;
+						}
+					})
+				}
+			}
+		})
+	</script>
 </body>
 </html>
