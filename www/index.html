@@ -22,7 +22,7 @@
     		navigator.notification.alert(
 			    '欢迎来到果壳网站!',  // message
 			    function(){
-
+			    	navigator.notification.beep(2);
 			    },         // callback
 			    '果壳网站提示信息',            // title
 			    '谢谢您'                  // buttonName
@@ -32,12 +32,12 @@
 			var bBack=false;
 			function fnBack(){
 				document.removeEventListener('backbutton',fnBack,false);
+				navigator.vibrate(500);	
     			if(bBack==false){
     				alert('再按一下退出');
     				bBack=true;
     				return false;
     			}
-    			navigator.vibrate(500);	
     		}
     		document.addEventListener('backbutton',fnBack,false);
 
@@ -54,10 +54,21 @@
     			navigator.camera.getPicture(function(str){
     				oCameraImg.src=str;
     			},function(){
-    				
+
     			},{
 
     			})
+    		};
+
+    		//获取用户位置
+    		var oLocationBtn=document.getElementById('get-geolcation');
+    		var oLocationInfo=docment.getElementById('geolcation-info');
+    		oLocationBtn.onclick=function(){
+    			navigator.geolocation.getCurrentPosition(function(position){
+    				oLocationInfo.innerHTML='精确度:'+position.coords.accuracy+'; 纬度:'+position.coords.latitude+'; 经度:'+position.coords.longitude;
+    			},function(err){
+    				alert('获取位置失败:'+err.message);
+    			});
     		};
     	},false);
     </script>
@@ -72,7 +83,7 @@
 		<div class="header-nav">
 			<a class="user-lgn" href="javascript:;" id="open-camera">打开相机</a>
 			<span class="line"></span>
-			<a class="user-reg" href="javascript:;">用户注册</a>
+			<a class="user-reg" href="javascript:;" id="get-geolcation">获取位置</a>
 		</div>
 	</header>
 
@@ -97,7 +108,7 @@
 					<a href="javascript:;" id="battery-info">穿山甲全部8个种正式列入CITES附录I了！穿山甲全部8个种</a>
 				</li>
 				<li>
-					<a href="javascript:;">神秘AI已连续击败50名顶尖围棋棋手</a>
+					<a href="javascript:;" id="geolcation-info" style="color:#399">神秘AI已连续击败50名顶尖围棋棋手</a>
 				</li>
 				<li>
 					<a href="javascript:;">最好的新年礼物，是能带来回忆的东西</a>
