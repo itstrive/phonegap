@@ -11,23 +11,23 @@
     <style>
     	@-webkit-keyframes shakeBody{
     		0%{
-    			-webkit-transform:translateY(0);
+    			-webkit-transform:rotate(0deg) translateY(0);
     		}
     		25%{
-				-webkit-transform:translateY(50px);
+				-webkit-transform:rotate(15deg)  translateY(50px);
     		}
     		50%{
-    			-webkit-transform:translateY(0);
+    			-webkit-transform:rotate(0deg)  translateY(0);
     		}
     		75%{
-    			-webkit-transform:translateY(-50px);
+    			-webkit-transform:rotate(-15deg)  translateY(-50px);
     		}
     		100%{
-    			-webkit-transform:translateY(0);
+    			-webkit-transform:rotate(0deg)  translateY(0);
     		}
     	}
     	.shake{
-    		-webkit-animation:400ms shakeBody linear 2;
+    		-webkit-animation:.4s shakeBody linear 2;
     	}
     </style>
     <script>
