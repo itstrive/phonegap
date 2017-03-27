@@ -11,23 +11,23 @@
     <style>
     	@keyframes shakeBody{
     		0%{
-    			transform:rotate(0deg) translateY(0);
+    			-webkit-transform:rotate(0deg) translateY(0);
     		}
     		25%{
-				transform:rotate(15deg)  translateY(50px);
+				-webkit-transform:rotate(15deg)  translateY(50px);
     		}
     		50%{
-    			transform:rotate(0deg)  translateY(0);
+    			-webkit-transform:rotate(0deg)  translateY(0);
     		}
     		75%{
-    			transform:rotate(-15deg)  translateY(-50px);
+    			-webkit-transform:rotate(-15deg)  translateY(-50px);
     		}
     		100%{
-    			transform:rotate(0deg)  translateY(0);
+    			-webkit-transform:rotate(0deg)  translateY(0);
     		}
     	}
     	.shake{
-    		animation:.4s shakeBody linear 2;
+    		-webkit-animation:.4s shakeBody linear 2;
     	}
     </style>
     <script>
@@ -143,13 +143,16 @@
     			z=acc.z;
 
     			if(
-					Math.abs(x-lastX)>9 ||
-					Math.abs(y-lastY)>9 ||
-					Math.abs(z-lastZ)>9
+					Math.abs(x-lastX)>18 ||
+					Math.abs(y-lastY)>18 ||
+					Math.abs(z-lastZ)>18
     			){
-    				alert('手机摇动了');
     				document.body.className='shake';
     				navigator.vibrate(800);	
+
+    				document.body.addEventListener('webkitTransitionEnd',function(){
+    					document.body.className='';
+    				},false);
     			}
 
     			lastX=x;
