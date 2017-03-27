@@ -7,6 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="cordova.js"></script>
     <script>
     	(function(){
     		document.documentElement.style.fontSize=document.documentElement.clientWidth*20/320+'px';
@@ -15,6 +16,17 @@
 	    		document.documentElement.style.fontSize=document.documentElement.clientWidth*20/320+'px';    		
 	    	};
     	})();
+    </script>
+    <script>
+    	document.addEventListener('deviceready',function(){
+    		alert('设备已经准备就绪了');
+
+			//按返回键
+    		document.addEventListener('backbutton',function(){
+    			alert('您按退出键了')
+    			return false;
+    		},false);
+    	},false);
     </script>
 </head>
 <body>
