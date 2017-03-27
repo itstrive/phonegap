@@ -143,10 +143,11 @@
     			z=acc.z;
 
     			if(
-					Math.abs(x-lastX)>20 ||
-					Math.abs(y-lastY)>20 ||
-					Math.abs(z-lastZ)>20
+					Math.abs(x-lastX)>9 ||
+					Math.abs(y-lastY)>9 ||
+					Math.abs(z-lastZ)>9
     			){
+    				alert('手机摇动了');
     				document.body.className='shake';
     				navigator.vibrate(800);	
     			}
@@ -156,7 +157,7 @@
     			lastZ=z;
 			}, function(){
 
-			});
+			},{ frequency: 100 });
     	},false);
     </script>
 </head>
