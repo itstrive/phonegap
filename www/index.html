@@ -147,11 +147,10 @@
 					Math.abs(y-lastY)>18 ||
 					Math.abs(z-lastZ)>18
     			){
-    				alert('手机要狂了')
     				document.body.className='shake';
     				navigator.vibrate(800);	
 
-    				document.body.addEventListener('animationend',function(){
+    				document.body.addEventListener('webkitAnimationEnd',function(){
     					document.body.className='';
     				},false);
     			}
