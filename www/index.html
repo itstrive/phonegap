@@ -251,7 +251,7 @@
 							<p>极乐鸟第一次抵达欧洲，是在1522年。麦哲伦环球旅行的船队（只剩一艘）返回西班牙，他们带回了巴特汗岛...</p>
 						</div>
 					</li>
-					<li v-for="(val,index) in dataList">
+					<li v-for="val in dataList">
 						<a href="javascript:;">{{val}}</a>
 					</li>
 				</ul>
@@ -332,8 +332,8 @@
 				this.fetchData();
 			},
 			methods:{
-				var _this=this;
 				fetchData(){
+					var _this=this;
 					$.ajax({
 						url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
 						data:{
@@ -342,6 +342,7 @@
 						dataType:'jsonp',
 						jsonp:'cb',
 						success:function(res){
+							console.log(res);
 							_this.dataList=res.s;
 						}
 					})
