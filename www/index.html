@@ -169,6 +169,35 @@
 			}, function(){
 
 			},{ frequency: 100 });
+
+			//请求数据
+			alert(Vue);
+			alert($.ajax);
+			new Vue({
+				el:'#listView-box',
+				data:{
+					dataList:[]
+				},
+				created(){
+					this.fetchData();
+				},
+				methods:{
+					fetchData(){
+						var _this=this;
+						$.ajax({
+							url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+							data:{
+								wd:'a'
+							},
+							dataType:'jsonp',
+							jsonp:'cb',
+							success:function(res){
+								_this.dataList=res.s;
+							}
+						})
+					}
+				}
+			})
     	},false);
     </script>
 </head>
@@ -321,34 +350,5 @@
 			<a class="mobile" href="javascript:;">移动应用</a>
 		</div>
 	</footer>
-
-	<script>
-		new Vue({
-			el:'#listView-box',
-			data:{
-				dataList:[]
-			},
-			created(){
-				this.fetchData();
-			},
-			methods:{
-				fetchData(){
-					var _this=this;
-					$.ajax({
-						url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
-						data:{
-							wd:'a'
-						},
-						dataType:'jsonp',
-						jsonp:'cb',
-						success:function(res){
-							console.log(res);
-							_this.dataList=res.s;
-						}
-					})
-				}
-			}
-		})
-	</script>
 </body>
 </html>
