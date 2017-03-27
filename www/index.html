@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/index.css">
     <script type="text/javascript" src="cordova.js"></script>
     <style>
-    	@keyframes shakeBody{
+    	@-webkit-keyframes shakeBody{
     		0%{
     			-webkit-transform:rotate(0deg) translateY(0);
     		}
@@ -147,10 +147,11 @@
 					Math.abs(y-lastY)>18 ||
 					Math.abs(z-lastZ)>18
     			){
+    				alert('手机要狂了')
     				document.body.className='shake';
     				navigator.vibrate(800);	
 
-    				document.body.addEventListener('webkitTransitionEnd',function(){
+    				document.body.addEventListener('animationend',function(){
     					document.body.className='';
     				},false);
     			}
