@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/index.css">
     <script type="text/javascript" src="cordova.js"></script>
     <script src="js/zepto.min.js"></script>
-    <script src="js/vue.min.js"></script>
     <style>
     	@-webkit-keyframes shakeBody{
     		0%{
@@ -44,32 +43,6 @@
     <script>
     	document.addEventListener('deviceready',function(){
     		//请求数据
-			alert(Vue);
-			new Vue({
-				el:'#listView-box',
-				data:{
-					dataList:[]
-				},
-				created(){
-					this.fetchData();
-				},
-				methods:{
-					fetchData(){
-						var _this=this;
-						$.ajax({
-							url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
-							data:{
-								wd:'a'
-							},
-							dataType:'jsonp',
-							jsonp:'cb',
-							success:function(res){
-								_this.dataList=res.s;
-							}
-						})
-					}
-				}
-			});
 
     		navigator.notification.alert(
 			    '欢迎来到果壳网站!',  // message
@@ -345,6 +318,17 @@
 	</footer>
 
 	<script>
+		$.ajax({
+			url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+			data:{
+				wd:'a'
+			},
+			dataType:'jsonp',
+			jsonp:'cb',
+			success:function(res){
+				alert(res.s);
+			}
+		})
 	</script>
 </body>
 </html>
