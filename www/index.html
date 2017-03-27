@@ -8,6 +8,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="css/index.css">
     <script type="text/javascript" src="cordova.js"></script>
+    <script src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/vue/1.0.8/vue.min.js"></script>
     <style>
     	@-webkit-keyframes shakeBody{
     		0%{
@@ -41,6 +43,12 @@
     </script>
     <script>
     	document.addEventListener('deviceready',function(){
+    		
+    		navigator.splashscreen.show();
+    		window.setTimeout(function () {
+			    navigator.splashscreen.hide();
+			}, 1000);
+
     		navigator.notification.alert(
 			    '欢迎来到果壳网站!',  // message
 			    function(){
@@ -235,7 +243,7 @@
 				<li>自然</li>
 			</ul>
 			<div class="listview">
-				<ul>
+				<ul id="listView-box">
 					<li class="listview-hot">
 						<h3><a href="javascript:;">穿山甲全部8个种正式列入CITES附录I了！穿山甲全部8个种</a></h3>
 						<div class="listview-hot-c">
@@ -243,23 +251,8 @@
 							<p>极乐鸟第一次抵达欧洲，是在1522年。麦哲伦环球旅行的船队（只剩一艘）返回西班牙，他们带回了巴特汗岛...</p>
 						</div>
 					</li>
-					<li>
-						<a href="javascript:;">神秘AI已连续击败50名顶尖围棋棋手</a>
-					</li>
-					<li>
-						<a href="javascript:;">最好的新年礼物，是能带来回忆的东西</a>
-					</li>
-					<li>
-						<a href="javascript:;">穿山甲全部8个种正式列入CITES附录I了！</a>
-					</li>
-					<li>
-						<a href="javascript:;">神秘AI已连续击败50名顶尖围棋棋手</a>
-					</li>
-					<li>
-						<a href="javascript:;">最好的新年礼物，是能带来回忆的东西</a>
-					</li>
-					<li>
-						<a href="javascript:;">食物仅仅是果腹？想得太简单了！想得太简单了！想得太简单了！</a>
+					<li v-for="(val,index) in dataList">
+						<a href="javascript:;">{{val}}</a>
 					</li>
 				</ul>
 			</div>
@@ -328,5 +321,33 @@
 			<a class="mobile" href="javascript:;">移动应用</a>
 		</div>
 	</footer>
+
+	<script>
+		new Vue({
+			el:'#listView-box',
+			data:{
+				dataList:[]
+			},
+			created(){
+				this.fetchData();
+			},
+			methods:{
+				var _this=this;
+				fetchData(){
+					$.ajax({
+						url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+						data:{
+							wd:'a'
+						},
+						dataType:'jsonp',
+						jsonp:'cb',
+						success:function(res){
+							_this.dataList=res.s;
+						}
+					})
+				}
+			}
+		})
+	</script>
 </body>
 </html>
