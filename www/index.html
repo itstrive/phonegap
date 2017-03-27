@@ -30,14 +30,35 @@
 
 			//按返回键
 			var bBack=false;
-    		document.addEventListener('backbutton',function(){
-    			navigator.vibrate(500);	
+			function fnBack(){
+				document.removeEventListener('backbutton',fnBack,false);
     			if(bBack==false){
     				alert('再按一下退出');
     				bBack=true;
     				return false;
     			}
-    		},false);
+    			navigator.vibrate(500);	
+    		}
+    		document.addEventListener('backbutton',fnBack,false);
+
+    		//电池信息
+    		var oBatteryBox=document.getElementById('battery-info');
+    		window.addEventListener("batterystatus", function(status){
+				oBatteryBox.innerHTML='电量:'+status.level+', 是否充电:'+status.isPlugged;
+    		}, false);
+
+    		//相机
+    		var oCameraBtn=document.getElementById('open-camera');
+    		var oCameraImg=document.getElementById('camera-img1');
+    		oCameraBtn.onclick=function(){
+    			navigator.camera.getPicture(function(str){
+    				oCameraImg.src=str;
+    			},function(){
+    				
+    			},{
+
+    			})
+    		};
     	},false);
     </script>
 </head>
@@ -49,7 +70,7 @@
 			<a class="toggle-pc" href="javascript:;">PC</a>
 		</div>
 		<div class="header-nav">
-			<a class="user-lgn" href="javascript:;">用户登录</a>
+			<a class="user-lgn" href="javascript:;" id="open-camera">打开相机</a>
 			<span class="line"></span>
 			<a class="user-reg" href="javascript:;">用户注册</a>
 		</div>
@@ -60,7 +81,7 @@
 		<div class="slider-box">
 			<ul class="slider-content">
 				<li>
-					<img src="image/banner01.png" alt="">
+					<img id="camera-img1" src="image/banner01.png" alt="">
 					<span>紫禁城的石头是如何运进去的?</span>
 				</li>
 			</ul>
@@ -73,7 +94,7 @@
 		<div class="listview">
 			<ul>
 				<li>
-					<a href="javascript:;">穿山甲全部8个种正式列入CITES附录I了！穿山甲全部8个种</a>
+					<a href="javascript:;" id="battery-info">穿山甲全部8个种正式列入CITES附录I了！穿山甲全部8个种</a>
 				</li>
 				<li>
 					<a href="javascript:;">神秘AI已连续击败50名顶尖围棋棋手</a>
