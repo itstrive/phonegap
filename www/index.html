@@ -19,12 +19,24 @@
     </script>
     <script>
     	document.addEventListener('deviceready',function(){
-    		alert('设备已经准备就绪了');
+    		navigator.notification.alert(
+			    '欢迎来到果壳网站!',  // message
+			    function(){
+
+			    },         // callback
+			    '果壳网站提示信息',            // title
+			    '谢谢您'                  // buttonName
+			);
 
 			//按返回键
+			var bBack=false;
     		document.addEventListener('backbutton',function(){
-    			alert('您按退出键了')
-    			return false;
+    			navigator.vibrate(500);	
+    			if(bBack==false){
+    				alert('再按一下退出');
+    				bBack=true;
+    				return false;
+    			}
     		},false);
     	},false);
     </script>
